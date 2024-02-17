@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../lib/prisma";
 import { FastifyInstance } from "fastify";
 
 export async function createPoll(app: FastifyInstance) {
@@ -8,8 +8,6 @@ export async function createPoll(app: FastifyInstance) {
       title: z.string(),
       options: z.array(z.string()),
     });
-
-    const prisma = new PrismaClient();
 
     const { title, options } = createPollBody.parse(request.body);
 
